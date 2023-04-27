@@ -130,6 +130,9 @@ public class EDMSServiceImpl implements EDMSService {
 	}
 
 	public List<EDMS> getMyDoc(Criteria cri) {
+		if(cri.getSearchData() != null){
+			cri.setSearchData(cri.getSearchData().toUpperCase());
+		}
 		List<EDMS> docList = dao.getMyDoc(cri);
 		for (EDMS e : docList) {
 			if (e.getDOCUMENT_STATE() == edmsResultEnum.WAIT.getValue()) {
@@ -150,9 +153,9 @@ public class EDMSServiceImpl implements EDMSService {
 	}
 
 	public List<EDMS> getMyDocApp(Criteria cri) {
-		System.out.println(cri.getSkip() + "skip");
-		System.out.println(cri.getViewSize() + "viewsize");
-
+		if(cri.getSearchData() != null){
+			cri.setSearchData(cri.getSearchData().toUpperCase());
+		}
 		List<EDMS> docAppList = dao.getMyDocApp(cri);
 		for (EDMS e : docAppList) {
 			if (e.getAPPROVAL_DATE() == null || e.getAPPROVAL_DATE() == "") {
