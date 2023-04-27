@@ -56,11 +56,11 @@ public class MemberController {
 
     @Autowired
     public MemberController(MemberService meberService, //SendMail sendMail, 
-    		PasswordEncoder passwordEncoder, MySaveFolder mysavefolder, 
-    		CalService calservice, DeptService deptservice, 
-    		JobService jobservice,  MailFormSenders mSender) {
+                            PasswordEncoder passwordEncoder, MySaveFolder mysavefolder,
+                            CalService calservice, DeptService deptservice,
+                            JobService jobservice, MailFormSenders mSender) {
         this.meberService = meberService;
-       // this.sendMail = sendMail;
+        // this.sendMail = sendMail;
         this.passwordEncoder = passwordEncoder;
         this.mysavefolder = mysavefolder;
         this.calservice = calservice;
@@ -69,6 +69,17 @@ public class MemberController {
         this.mSender = mSender;
     }
 
+    @GetMapping("/login")
+    public ModelAndView login(ModelAndView mv, @CookieValue(value = "remember-me", required = false) Cookie
+            readCookie, HttpSession session, Principal userPrincipal) {
+        if (readCookie != null) {
+            logger.info("저장된 아이디 : " + userPrincipal.getName());
+            mv.setViewName("redirect:/main/main");
+        } else {
+            mv.setViewName("/member/loginForm");
+        }
+        return mv;
+    }
 
     @GetMapping("/mypage")
     public ModelAndView mypage(Principal principal, ModelAndView mv, HttpServletRequest request) {
@@ -76,7 +87,6 @@ public class MemberController {
         Member m = meberService.member_info(user_id);
         String deptName = deptservice.deptName(user_id);
         String jobName = jobservice.jobName(user_id);
-
 
         mv.setViewName("mypage/mypage");
         mv.addObject("memberinfo", m);
@@ -233,23 +243,14 @@ public class MemberController {
     }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(ModelAndView mv, @CookieValue(value = "remember-me", required = false) Cookie
-            readCookie,
-                              HttpSession session, Principal userPrincipal) {
-        mv.setViewName("/member/loginForm");
-
-        return mv;
-    }
-
     @RequestMapping(value = "/join", method = RequestMethod.GET)
     public String join() {
         return "member/joinForm";
     }
-    
+
     @RequestMapping(value = "/mypage_Detail", method = RequestMethod.GET)
     public String mydetail() {
-    	return "mypage/mypage_Detail";
+        return "mypage/mypage_Detail";
     }
 
     @RequestMapping(value = "/joinProcess")
@@ -304,7 +305,7 @@ public class MemberController {
 //        PrintWriter out = response.getWriter();
 //        
         MailVO mail = mSender.setMailInfo("msb9876", receiver);
-        String num =  mSender.sendMail(mail);
+        String num = mSender.sendMail(mail);
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         out.print(num);

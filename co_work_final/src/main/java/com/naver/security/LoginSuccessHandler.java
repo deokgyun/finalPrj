@@ -6,8 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.naver.cowork.service.CalService;
+import com.naver.cowork.service.MemberService;
+import com.naver.cowork.service.NoticeService;
+import com.naver.cowork.service.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -111,7 +116,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	    
 	    logger.info(userAgent);
 
-		String url = request.getContextPath() + "/main/main?user_id="+user_id;
+		String url = request.getContextPath() + "/main";
 		logger.info(url);
 		response.sendRedirect(url);
 	}

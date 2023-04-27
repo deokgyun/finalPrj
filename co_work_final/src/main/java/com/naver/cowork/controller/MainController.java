@@ -22,7 +22,7 @@ import com.naver.cowork.service.NoticeService;
 import com.naver.cowork.service.ProjectService;
 
 @Controller
-@RequestMapping("/main")
+@RequestMapping("/")
 public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	private ProjectService projectService;
