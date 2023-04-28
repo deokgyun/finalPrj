@@ -18,13 +18,13 @@ DB, 구조, 설계, 모든 기획을 팀에서 진행하였고, 레이아웃은 
 
 ### 개발환경
 
-도구 : STS4, IntelliJ, SQLDeveloper, GITHUB, Bracket
+* 도구 : STS4, IntelliJ, SQLDeveloper, GITHUB, Bracket
 
-DB   : ORACLE XE 11G
+* DB   : ORACLE XE 11G
 
-언어 : JAVA, Javascript, JQuery, HTML, CSS
+* 언어 : JAVA, Javascript, JQuery, HTML, CSS
 
-기타 : Scouter Monitring, nGrinder, Notion
+* 기타 : Scouter Monitring, nGrinder, Notion
 
 ### Database E-R Diagram
 
