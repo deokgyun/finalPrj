@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 콜백함수 event에 직접적으로 ajax넣게되면 데이터가 넘어오기전에 
     // 실행이 되므로 값이 안나타날수있다
     $.ajax({
-        url: '../member/calSelect',
+        url: '../member/calendar',
         type:"Get",
         dataType: "json",
         success: function(result) {
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // 이벤트 객체 필드 document : https://fullcalendar.io/docs/event-object
             events: [
-                <c:forEach var="c" items="${callist}">
+                <c:forEach var="c" items="${calList}">
                 {
                     calno: '${c.cal_no}',
                     caltype: '${c.cal_type}',
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     allDay: '${c.cal_allday}',
                     color: "${c.cal_color}"
                 }
-                <c:if test="${!empty callist}">, </c:if>
+                <c:if test="${!empty calList}">, </c:if>
                 </c:forEach>
             ]
         });
@@ -284,22 +284,22 @@ document.addEventListener('DOMContentLoaded', function () {
 										<i class="mdi mdi-plus-circle-outline"></i> 일정생성
 									</button>
 								</div>
-								<div id="external-events" class="mt-4">
-									<div class="external-event bg-success text-white"
-										data-class="bg-success">
-										<input class="form-check-input" type="checkbox"
-											name="cal_type" value="P" id="formCheckcolor2" checked="">
-										<label class="form-check-label" for="formCheckcolor2">
-											개인 일정 </label>
-									</div>
-									<div class="external-event bg-info mt-2 text-white"
-										data-class="bg-info">
-										<input class="form-check-input" type="checkbox"
-											name="cal_type" value="C" id="formCheckcolor3" checked="">
-										<label class="form-check-label" for="formCheckcolor3">
-											부서 일정 </label>
-									</div>
-								</div>
+<%--								<div id="external-events" class="mt-4">--%>
+<%--									<div class="external-event bg-success text-white"--%>
+<%--										data-class="bg-success">--%>
+<%--										<input class="form-check-input" type="checkbox"--%>
+<%--											name="cal_type" value="P" id="formCheckcolor2" checked="">--%>
+<%--										<label class="form-check-label" for="formCheckcolor2">--%>
+<%--											개인 일정 </label>--%>
+<%--									</div>--%>
+<%--									<div class="external-event bg-info mt-2 text-white"--%>
+<%--										data-class="bg-info">--%>
+<%--										<input class="form-check-input" type="checkbox"--%>
+<%--											name="cal_type" value="C" id="formCheckcolor3" checked="">--%>
+<%--										<label class="form-check-label" for="formCheckcolor3">--%>
+<%--											부서 일정 </label>--%>
+<%--									</div>--%>
+<%--								</div>--%>
 
 								<div class="row justify-content-center mt-5">
 									<img src="assets/images/verification-img.png" alt=""

@@ -74,7 +74,7 @@ public class MemberController {
             readCookie, HttpSession session, Principal userPrincipal) {
         if (readCookie != null) {
             logger.info("저장된 아이디 : " + userPrincipal.getName());
-            mv.setViewName("redirect:/main/main");
+            mv.setViewName("redirect:/main");
         } else {
             mv.setViewName("/member/loginForm");
         }

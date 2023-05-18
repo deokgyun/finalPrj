@@ -76,20 +76,20 @@
 	<div class="rightbar-overlay"></div>
 
 	<!-- JAVASCRIPT -->
-	<script src="assets/libs/jquery/jquery.min.js"></script>
-	<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="assets/libs/metismenu/metismenu.min.js"></script>
-	<script src="assets/libs/simplebar/simplebar.min.js"></script>
-	<script src="assets/libs/node-waves/waves.min.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/libs/jquery/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/libs/metismenu/metismenu.min.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/libs/simplebar/simplebar.min.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/libs/node-waves/waves.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="main_js/main.js"></script>
+	<script src="${pageContext.request.contextPath }/main_js/main.js"></script>
 	
 	<script>
 	</script>
 
 	<!-- App js -->
-	<script src="assets/js/app.js"></script>
-	<script src="mypage_js/index.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/app.js"></script>
+	<script src="${pageContext.request.contextPath }/mypage_js/index.js"></script>
 
 </body>
 

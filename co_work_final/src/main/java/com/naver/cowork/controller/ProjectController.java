@@ -2,6 +2,7 @@
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -83,7 +84,8 @@ public class ProjectController {
 
 
 	@RequestMapping(value = "/ProjectList" , method =  RequestMethod.GET)
-	public ModelAndView project_list(ModelAndView mv , @RequestParam(value = "id")String id) {
+	public ModelAndView project_list(ModelAndView mv, Principal principal) {
+		String id = principal.getName();
 		List<Project> list = projectService.getProjectList(id);
 		List<Project> deadList = projectService.getDeadLineProjects(id);
 		

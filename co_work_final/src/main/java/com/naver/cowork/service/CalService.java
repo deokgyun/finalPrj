@@ -1,7 +1,6 @@
 package com.naver.cowork.service;
 
 import com.naver.cowork.domain.Calendar;
-import com.naver.cowork.domain.Dept;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 @Service
 public interface CalService {
 
-    public List<Calendar> calAll(String user_id);
+    public List<Calendar> getCalList(String user_id);
 
     public int calInsert(Calendar calendar);
 

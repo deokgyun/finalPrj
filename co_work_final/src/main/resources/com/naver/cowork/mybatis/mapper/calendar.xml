@@ -32,7 +32,7 @@
 	WHERE ROWNUM<![CDATA[ <= ]]>5
 	</select>
 
-    <select id="calAll" resultType="calendar">
+    <select id="getCalList" resultType="calendar">
         select cal_no,
                cal_type,
                cal_title,
@@ -46,6 +46,7 @@
                user_id
         from calendar
         where user_id = #{user_id}
+
 
     </select>
 

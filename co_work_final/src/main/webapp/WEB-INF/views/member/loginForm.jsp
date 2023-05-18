@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="mt-4 text-center row">
                                     <div class="col-6">
-                                        <p><a href="../member/join" class="fw-medium text-primary"> 회원가입 </a></p>
+                                        <p><a href="${pageContext.request.contextPath }/member/join" class="fw-medium text-primary"> 회원가입 </a></p>
                                     </div>
                                     <div class="col-6">
                                         <a href="auth-recoverpw.html" class="text-muted"><i
