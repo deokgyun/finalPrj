@@ -18,6 +18,7 @@
           rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath }/resources/assets/css/project_Css/project.css" rel="stylesheet"
           type="text/css"/>
+    <link href="${pageContext.request.contextPath }/resources/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
     <meta name="_csrf" content="${_csrf.token }">
     <meta name="_csrf_header" content="${_csrf.headerName}">
     <style>
@@ -68,7 +69,7 @@
                 <!-- LOGO -->
                 <div class="navbar-brand-box">
 
-                    <a href="${pageContext.request.contextPath }/main/main" class="logo logo-light"> <span
+                    <a href="${pageContext.request.contextPath }/main" class="logo logo-light"> <span
                             class="logo-sm"> <img
                             src="${pageContext.request.contextPath }/resources/assets/images/logo-light.svg"
                             alt="" height="22">
@@ -516,7 +517,7 @@
                             key="t-lock-screen">Lock screen</span></a>
                         <div class="dropdown-divider"></div>
                         <form action="${pageContext.request.contextPath }/member/logout"
-                              id="logout" method="post"><a class="dropdown-item text-danger">
+                              id="logout" method="post"><a class="dropdown-item text-danger" href="${pageContext.request.contextPath }/member/logout">
                             <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
                             <span key="t-logout" id="submit">Logout</span></a> <input
                                 type="hidden" name="${_csrf.parameterName}"
@@ -560,7 +561,7 @@
                                         </a>
                                             <ul class="sub-menu" aria-expanded="false">
                                                 <li><a target="_self"
-                                                       href="${pageContext.request.contextPath }/project/ProjectList?id=ADMINTEST"
+                                                       href="${pageContext.request.contextPath }/project/ProjectList"
                                                        id="project_list">전체</a>
                                                 </li>
 
@@ -751,14 +752,14 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js"
         integrity="sha256-d3rtug+Hg1GZPB7Y/yTcRixO/wlI78+2m08tosoRn7A="
         crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath }/resources/assets/libs/dropzone/min/dropzone.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/assets/js/project_js/project_add.js"></script>
+<script src="${pageContext.request.contextPath }/resources/assets/js/project_js/project_list_onload.js"></script>
+
 
 
 <script>
-    $(function () {
-        $('#submit').click(function () {
-            $("#logout").submit();
-        });
-    })
 </script>
+
 
 </html>

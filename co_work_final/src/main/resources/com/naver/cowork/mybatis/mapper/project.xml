@@ -7,9 +7,9 @@
      INSERT INTO PROJECT_BOARD (PRO_BOARD_CARTEGORY, PRO_BOARD_SUBJECT, PRO_BOARD_STATE, PRO_BOARD_PRIORITY, PRO_BOARD_START, PRO_BOARD_END, PRO_BOARD_CONTENT, PRO_BOARD_CREATER_NAME, PRO_BOARD_CREATER_ID, PRO_BOARD_FILE, PRO_BOARD_NUM,PROJECT_NUM)
       VALUES ('글', #{PRO_BOARD_SUBJECT}, '진행중', 'LOW', #{PRO_BOARD_START}, #{PRO_BOARD_END}, #{PRO_BOARD_CONTENT}, #{PRO_BOARD_CREATER_ID}, #{PRO_BOARD_CREATER_ID}, #{PRO_BOARD_FILE, jdbcType=VARCHAR}, seq_project_board.nextval, #{PROJECT_NUM})
      </insert>
-     
+
      <select id="getAllProjects" resultType="Project">
-        SELECT * FROM PROJECT 
+        SELECT * FROM PROJECT
     </select>
 
     <select id="getProjectsByCreatorId" resultType="Project">
@@ -18,17 +18,17 @@
 
 
 	<select id="getProjectListForMain" resultType="Project">
-	SELECT PR.*, U.USER_IMG project_admin_img FROM ( SELECT * FROM 
-					    (SELECT ROWNUM row_num,P.* FROM (SELECT * FROM PROJECT ORDER BY PROJECT_END)P 
-					     WHERE <![CDATA[  ROWNUM <= 20 ]]>) 
+	SELECT PR.*, U.USER_IMG project_admin_img FROM ( SELECT * FROM
+					    (SELECT ROWNUM row_num,P.* FROM (SELECT * FROM PROJECT ORDER BY PROJECT_END)P
+					     WHERE <![CDATA[  ROWNUM <= 20 ]]>)
 					WHERE ROWNUM >= 1
 					AND ROWNUM <![CDATA[  <= 20 ]]>
-					AND PROJECT_END > SYSDATE 
-					OR PROJECT_END IS NULL )PR 
-					INNER JOIN USER_INFO U 
-					ON PR.PROJECT_ADMIN = U.USER_ID 
+					AND PROJECT_END > SYSDATE
+					OR PROJECT_END IS NULL )PR
+					INNER JOIN USER_INFO U
+					ON PR.PROJECT_ADMIN = U.USER_ID
 					ORDER BY PROJECT_END
-		
+
 	</select>
 
 	<select id="getPjectCommentCount" parameterType="int" resultType="int">
@@ -55,7 +55,7 @@
 		        T.PRO_BO_COMMENT_RE_REF,
 		        T.PRO_BO_COMMENT_RE_SEQ
 		    FROM (
-		        SELECT 
+		        SELECT
 		            PRO_BO_COMMENT_NUM,
 		            PRO_BO_COMMENT_ID,
 		            PRO_BO_COMMENT_NAME,
@@ -76,32 +76,32 @@
 	WHERE RN BETWEEN ${start} AND ${end}
 			  ]]>
 	</select>
-	
+
 	<update id="ProjectCommentUpdate" parameterType="Project_Board_Comment">
-		update PROJECT_BOARD_COMMENT 
+		update PROJECT_BOARD_COMMENT
 		SET
 			PRO_BO_COMMENT_ID = '${PRO_BO_COMMENT_ID}' ,
 			PRO_BO_COMMENT_NAME = (SELECT USER_NAME FROM USER_INFO WHERE USER_ID = '${PRO_BO_COMMENT_ID}'),
 			PRO_BO_COMMENT_CONTENT = '${PRO_BO_COMMENT_CONTENT}',
 			PRO_BO_COMMENT_FILE = '${PRO_BO_COMMENT_FILE}',
-			PRO_BO_COMMENT_ORIGINFILE = '${PRO_BO_COMMENT_ORIGINFILE}' 
+			PRO_BO_COMMENT_ORIGINFILE = '${PRO_BO_COMMENT_ORIGINFILE}'
 		WHERE
 			PRO_BO_COMMENT_NUM = ${PRO_BO_COMMENT_NUM}
 	</update>
-	
+
 	<insert id="ProjectCommentReply" parameterType="Project_Board_Comment">
 		insert into PROJECT_BOARD_COMMENT(
-			PRO_BO_COMMENT_NUM,	
+			PRO_BO_COMMENT_NUM,
 			PRO_BO_COMMENT_ID,
 			PRO_BO_COMMENT_NAME,
 			PRO_BO_COMMENT_CONTENT,
-			PRO_BO_COMMENT_FILE, 
+			PRO_BO_COMMENT_FILE,
 			PRO_BO_COMMENT_RE_LEV,
 			PRO_BO_COMMENT_DATE,
 		    PRO_BOARD_NUM,
 			PRO_BO_COMMENT_ORIGINFILE,
 			PRO_BO_COMMENT_RE_REF
-		) values ( 
+		) values (
 			pro_board_comm_seq.NEXTVAL,
 			'${PRO_BO_COMMENT_ID}',
 			(SELECT USER_NAME FROM USER_INFO WHERE USER_ID = '${PRO_BO_COMMENT_ID}'),
@@ -112,22 +112,22 @@
 		    ${PRO_BOARD_NUM},
 			'${PRO_BO_COMMENT_ORIGINFILE}',
 			${PRO_BO_COMMENT_RE_REF}
-			
+
 		 )
 	</insert>
-	
+
 	<insert id="ProjectCommentAdd" parameterType="Project_Board_Comment">
 		insert into PROJECT_BOARD_COMMENT(
-			PRO_BO_COMMENT_NUM,	
+			PRO_BO_COMMENT_NUM,
 			PRO_BO_COMMENT_ID,
 			PRO_BO_COMMENT_NAME,
 			PRO_BO_COMMENT_CONTENT,
-			PRO_BO_COMMENT_FILE, 
+			PRO_BO_COMMENT_FILE,
 			PRO_BO_COMMENT_RE_LEV,
 			PRO_BO_COMMENT_DATE,
 		    PRO_BOARD_NUM,
-			PRO_BO_COMMENT_ORIGINFILE 
-		) values ( 
+			PRO_BO_COMMENT_ORIGINFILE
+		) values (
 			pro_board_comm_seq.NEXTVAL,
 			'${PRO_BO_COMMENT_ID}',
 			(SELECT USER_NAME FROM USER_INFO WHERE USER_ID = '${PRO_BO_COMMENT_ID}'),
@@ -146,7 +146,7 @@
 		where PRO_BOARD_NUM = ${pbNum}
 		and USER_ID = '${id}'
 	</update>
-	
+
 	<update id="updateUserCheckInfo" parameterType="java.util.HashMap">
 		update PROBOARD_CHECK_USER
 		set IS_CHECKED = 1
@@ -155,12 +155,12 @@
 	</update>
 
 	<select id="getProBoardCheckUserList" resultType="Proboard_check_user" parameterType="String">
-		select pro_board_num,pro_board_num,is_checked from proboard_check_user 
+		select pro_board_num,pro_board_num,is_checked from proboard_check_user
 		where user_id = #{id}
 	</select>
 
 	<update id="checkedBookmark" parameterType="int">
-		update project_board 
+		update project_board
 		set pro_board_bookmark = 1
 		where pro_board_num = #{pbNum}
 	</update>
@@ -169,9 +169,9 @@
 		select pro_board_subject from project_board
 		where pro_board_num = ${pbNum}
 	</select>
-	
+
 	<update id="checkedClearBookmark" parameterType="int">
-		update project_board 
+		update project_board
 		set pro_board_bookmark = 0
 		where pro_board_num = #{pbNum}
 	</update>
@@ -183,26 +183,26 @@
 
 	<select id="getProjectBookmarkList" resultType="String" parameterType="int">
 		select pro_board_subject from (
-			select rownum,pro_board_subject from project_board 
-			where project_num = ${pNum} 
+			select rownum,pro_board_subject from project_board
+			where project_num = ${pNum}
 			and pro_board_bookmark = 1 )
 		where rownum <![CDATA[ <= 5 ]]>
 	</select>
 
 
 	<select id="getCheckCount" resultType="int" parameterType="int">
-		select pro_board_like from project_board 
+		select pro_board_like from project_board
 		where pro_board_num = ${pbNum}
 	</select>
 
 	<update id="decreaseCheck" parameterType="int">
-		update project_board 
+		update project_board
 		set pro_board_like = pro_board_like-1
 		where PRO_BOARD_NUM = ${pbNum}
 	</update>
-	
+
 	<update id="increaseCheck" parameterType="int">
-		update project_board 
+		update project_board
 		set pro_board_like = pro_board_like+1
 		where PRO_BOARD_NUM = ${pbNum}
 	</update>
@@ -216,23 +216,23 @@
 	</select>
 
 	<select id="getProjectList" resultType="Project" parameterType="String">
-	SELECT PR.*, U.USER_IMG project_admin_img FROM ( SELECT * FROM 
-					    (SELECT ROWNUM row_num,P.* FROM (SELECT * FROM PROJECT ORDER BY PROJECT_END)P 
-					     WHERE <![CDATA[  ROWNUM <= 20 ]]>) 
+	SELECT PR.*, U.USER_IMG project_admin_img FROM ( SELECT * FROM
+					    (SELECT ROWNUM row_num,P.* FROM (SELECT * FROM PROJECT ORDER BY PROJECT_END)P
+					     WHERE <![CDATA[  ROWNUM <= 20 ]]>)
 					WHERE ROWNUM >= 1
 					AND ROWNUM <![CDATA[  <= 20 ]]>
-					AND PROJECT_END > SYSDATE 
-					OR PROJECT_END IS NULL )PR 
-					INNER JOIN USER_INFO U 
-					ON PR.PROJECT_ADMIN = U.USER_ID 
+					AND PROJECT_END > SYSDATE
+					OR PROJECT_END IS NULL )PR
+					INNER JOIN USER_INFO U
+					ON PR.PROJECT_ADMIN = U.USER_ID
 					ORDER BY PROJECT_END
 	</select>
 	<select id="getDeadLineProjects" resultType="Project" parameterType="String">
-		SELECT PR.*,U.USER_IMG project_admin_img FROM ( SELECT * FROM (SELECT ROWNUM row_num,P.* FROM (SELECT * FROM PROJECT ORDER BY PROJECT_END)P 
-								                WHERE ROWNUM <![CDATA[ <= 20 ]]>) WHERE ROWNUM >= 1 AND ROWNUM  <![CDATA[ <= 20 ]]> 
-								                AND PROJECT_END <![CDATA[ < SYSDATE  ]]> )PR 
-								INNER JOIN USER_INFO U 
-								ON PR.PROJECT_ADMIN = U.USER_ID 
+		SELECT PR.*,U.USER_IMG project_admin_img FROM ( SELECT * FROM (SELECT ROWNUM row_num,P.* FROM (SELECT * FROM PROJECT ORDER BY PROJECT_END)P
+								                WHERE ROWNUM <![CDATA[ <= 20 ]]>) WHERE ROWNUM >= 1 AND ROWNUM  <![CDATA[ <= 20 ]]>
+								                AND PROJECT_END <![CDATA[ < SYSDATE  ]]> )PR
+								INNER JOIN USER_INFO U
+								ON PR.PROJECT_ADMIN = U.USER_ID
 	</select>
 
 	<insert id="insert" parameterType="project">
@@ -240,38 +240,38 @@
 		(PROJECT_NUM, PROJECT_NAME, PROJECT_STATE, PROJECT_ADMIN, PROJECT_START, PROJECT_END, PROJECT_priority)
 		values ( NVL((SELECT MAX(project_num)FROM PROJECT)+1,0 ), #{project_name},#{project_state},#{project_admin},#{project_start},#{project_end},#{project_priority})
 	</insert>
-	
+
 
 	<insert id="insert_user" parameterType="project">
 		insert into project_user
-		values( (select nvl(max #{PROJECT_NUM},0)+1 FROM PROJECT) 
-		                      , #{project_admin} ,  
-		                   (SELECT MAX(ROWNUM)+3 FROM PROJECT_USER) ) 
+		values( (select nvl(max #{PROJECT_NUM},0)+1 FROM PROJECT)
+		                      , #{project_admin} ,
+		                   (SELECT MAX(ROWNUM)+3 FROM PROJECT_USER) )
 	</insert>
-	
+
 	<select id="getProjectDetailList" resultType="project_board">
-       SELECT PRO_BOARD_SUBJECT, PRO_BOARD_STATE, PRO_BOARD_PRIORITY, PRO_BOARD_CREATER_NAME, 
+       SELECT PRO_BOARD_SUBJECT, PRO_BOARD_STATE, PRO_BOARD_PRIORITY, PRO_BOARD_CREATER_NAME,
        		  PRO_BOARD_START, PRO_BOARD_END, PRO_BOARD_CREATE_DATE, PRO_BOARD_NUM
-       		  FROM Project_Board 
+       		  FROM Project_Board
        		  WHERE PRO_BOARD_STATE ='진행중' order by PRO_BOARD_END ASC
-       		  
+
     </select>
 
 
 	<select id="getListCount" resultType="int">
 		select count(*) from project
 	</select>
-	
+
 	<select id="getProjectUser" parameterType="int" resultType="com.naver.cowork.domain.Project_User">
 		SELECT P.USER_ID,P.PROJECT_NUM , U.USER_NAME, U.USER_IMG FROM PROJECT_USER P
-								INNER JOIN USER_INFO U 
-								ON P.USER_ID = U.USER_ID 
+								INNER JOIN USER_INFO U
+								ON P.USER_ID = U.USER_ID
 								WHERE PROJECT_NUM = #{project_num}
 	</select>
 
-	
+
 	<select id="getProjectUserCount" parameterType="int" resultType="int">
 		select count(*) from project_user where project_num = #{project_num}
-	</select> 
+	</select>
 
 </mapper>

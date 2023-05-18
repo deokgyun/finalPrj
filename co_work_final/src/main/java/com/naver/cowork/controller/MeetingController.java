@@ -64,9 +64,8 @@ public class MeetingController {
    @GetMapping("/rev/{meet_no}")
    public ModelAndView rev(ModelAndView mv, @PathVariable("meet_no") int meet_no, Principal principal) {
       List<MeetReservation> mr = meetservice.getReserv(meet_no);
-      MeetingRoom mRoom = new MeetingRoom();
+      MeetingRoom mRoom = meetservice.meetRoomSelect(meet_no);
       String myId = principal.getName();
-      mRoom = meetservice.meetRoomSelect(meet_no);
       mv.setViewName("meeting/meetRev");
       mv.addObject("list", mr);
       mv.addObject("roomInfo", mRoom);

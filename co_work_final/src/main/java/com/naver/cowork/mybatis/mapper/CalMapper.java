@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface CalMapper {
 
-    public List<Calendar> calAll(String user_id);
+    public List<Calendar> getCalList(String user_id);
 
     public int calInsert(Calendar calendar);
 

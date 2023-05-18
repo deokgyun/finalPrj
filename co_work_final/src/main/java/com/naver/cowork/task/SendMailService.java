@@ -15,35 +15,34 @@ import com.naver.cowork.domain.MailVO;
 import com.naver.cowork.domain.MySaveFolder;
 
 public abstract class SendMailService {
-	@Value("${spring.mail.username}")
-	String sender;
-	
-	@Autowired
-	private JavaMailSenderImpl mSender;
+    @Value("${spring.mail.username}")
+    String sender;
 
-	
+    @Autowired
+    private JavaMailSenderImpl mSender;
 
-	private static final Logger logger = LoggerFactory.getLogger(SendMailService.class);
 
-	public String sendMail(MailVO vo) {
+    private static final Logger logger = LoggerFactory.getLogger(SendMailService.class);
 
-		MimeMessagePreparator mp = new MimeMessagePreparator() {
+    public String sendMail(MailVO vo) {
 
-			@Override
-			public void prepare(MimeMessage mimeMessage) throws Exception {
-				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-				helper.setFrom(sender);
-				helper.setTo(vo.getTo());
-				helper.setSubject(vo.getSubject());
-				String content = vo.getContent();
-				helper.setText(content, true);
-			}
+        MimeMessagePreparator mp = new MimeMessagePreparator() {
 
-		};
+            @Override
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                helper.setFrom(sender);
+                helper.setTo(vo.getTo());
+                helper.setSubject(vo.getSubject());
+                String content = vo.getContent();
+                helper.setText(content, true);
+            }
 
-		mSender.send(mp);
-		logger.info("메일 전송했습니다.");
-		return vo.getContent();
-	}
+        };
+
+        mSender.send(mp);
+        logger.info("메일 전송했습니다.");
+        return vo.getContent();
+    }
 
 }

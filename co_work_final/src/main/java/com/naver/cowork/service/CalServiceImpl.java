@@ -3,18 +3,15 @@ package com.naver.cowork.service;
 
 import com.naver.cowork.domain.Calendar;
 import com.naver.cowork.mybatis.mapper.CalMapper;
-import org.apache.ibatis.annotations.Delete;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class CalServiceImpl implements CalService {
@@ -26,8 +23,9 @@ public class CalServiceImpl implements CalService {
 		this.dao = dao;
 	}
 
-	public List<Calendar> calAll(String user_id) {
-		return dao.calAll(user_id);
+	public List<Calendar> getCalList(String user_id) {
+
+		return dao.getCalList(user_id);
 	}
 
 	@Transactional
