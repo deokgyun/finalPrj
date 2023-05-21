@@ -137,7 +137,6 @@
                     $("input[name=user_email]").val('').focus();
                 } else {
                     let receiver = $("#user_email").val();
-                    console.log(receiver);
                     $.ajax({
                         url: "../member/sendMail", //요청 경로
                         data: {"user_email": receiver}, //요청 시 포함되어질 데이터
@@ -225,7 +224,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="userpassword_ch" class="form-label">비밀번호 확인</label>
+                                        <label for="pw2" class="form-label">비밀번호 확인</label>
                                         <input type="password" class="form-control" id="pw2" name="password_ch"
                                                placeholder="비밀번호를 다시 입력하세요" required>
                                         <td><font id="checkPw"></font></td>

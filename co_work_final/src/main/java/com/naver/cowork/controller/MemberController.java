@@ -1,7 +1,6 @@
 package com.naver.cowork.controller;
 
 
-import com.naver.cowork.domain.Job;
 import com.naver.cowork.domain.MailVO;
 import com.naver.cowork.domain.Member;
 import com.naver.cowork.domain.MySaveFolder;
@@ -11,7 +10,6 @@ import com.naver.cowork.service.JobService;
 import com.naver.cowork.service.MemberService;
 import com.naver.cowork.task.MailFormSenders;
 //import com.naver.cowork.task.SendMail;
-import com.naver.cowork.task.SendMailService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,14 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static java.lang.System.out;
 
 
 @Controller
@@ -45,35 +38,34 @@ public class MemberController {
 
 
     private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-    private MemberService meberService;
-    private CalService calservice;
-    private DeptService deptservice;
-    private JobService jobservice;
+    private MemberService memberService;
+    private CalService calService;
+    private DeptService deptService;
+    private JobService jobService;
     private PasswordEncoder passwordEncoder;
     //private SendMail sendMail;
-    private MySaveFolder mysavefolder;
-    private MailFormSenders mSender;
+    private MySaveFolder mySaveFolder;
+    private MailFormSenders mailFormSenders;
 
     @Autowired
-    public MemberController(MemberService meberService, //SendMail sendMail, 
-                            PasswordEncoder passwordEncoder, MySaveFolder mysavefolder,
-                            CalService calservice, DeptService deptservice,
-                            JobService jobservice, MailFormSenders mSender) {
-        this.meberService = meberService;
+    public MemberController(MemberService memberService, //SendMail sendMail,
+                            PasswordEncoder passwordEncoder, MySaveFolder mySaveFolder,
+                            CalService calService, DeptService deptService,
+                            JobService jobService, MailFormSenders mailFormSenders) {
+        this.memberService = memberService;
         // this.sendMail = sendMail;
         this.passwordEncoder = passwordEncoder;
-        this.mysavefolder = mysavefolder;
-        this.calservice = calservice;
-        this.deptservice = deptservice;
-        this.jobservice = jobservice;
-        this.mSender = mSender;
+        this.mySaveFolder = mySaveFolder;
+        this.calService = calService;
+        this.deptService = deptService;
+        this.jobService = jobService;
+        this.mailFormSenders = mailFormSenders;
     }
 
     @GetMapping("/login")
     public ModelAndView login(ModelAndView mv, @CookieValue(value = "remember-me", required = false) Cookie
-            readCookie, HttpSession session, Principal userPrincipal) {
+            readCookie, Principal userPrincipal) {
         if (readCookie != null) {
-            logger.info("저장된 아이디 : " + userPrincipal.getName());
             mv.setViewName("redirect:/main");
         } else {
             mv.setViewName("/member/loginForm");
@@ -84,9 +76,9 @@ public class MemberController {
     @GetMapping("/mypage")
     public ModelAndView mypage(Principal principal, ModelAndView mv, HttpServletRequest request) {
         String user_id = principal.getName();
-        Member m = meberService.member_info(user_id);
-        String deptName = deptservice.deptName(user_id);
-        String jobName = jobservice.jobName(user_id);
+        Member m = memberService.member_info(user_id);
+        String deptName = deptService.deptName(user_id);
+        String jobName = jobService.jobName(user_id);
 
         mv.setViewName("mypage/mypage");
         mv.addObject("memberinfo", m);
@@ -100,7 +92,7 @@ public class MemberController {
     @GetMapping("/updateCheck")
     public void updateCheck(Member member, Principal principal, HttpServletResponse response) throws Exception {
         String user_id = member.getUser_id();
-        Member m = meberService.member_info(user_id);
+        Member m = memberService.member_info(user_id);
         PrintWriter out = response.getWriter();
         if (m.getUser_phone() == null && m.getUser_fax() == null) {
             if (member.getUser_phone() == "" && member.getUser_fax() == "") {
@@ -135,12 +127,12 @@ public class MemberController {
         if (!imgupload.isEmpty()) {
             String fileName = imgupload.getOriginalFilename();
             member.setOriginalfile(fileName);
-            String saveFolder = mysavefolder.getSavefolder();
+            String saveFolder = mySaveFolder.getSavefolder();
             String fileDBName = fileDBName(fileName, saveFolder);
             imgupload.transferTo(new File(saveFolder + fileDBName));
             member.setUser_card(fileDBName);
         }
-        meberService.mypageUpdate(member);
+        memberService.mypageUpdate(member);
         return "redirect:../member/mypage";
     }
 
@@ -187,7 +179,6 @@ public class MemberController {
 
     @GetMapping("/modifyPassword")
     public String modifyPassword() {
-
         return "config/modifypassword";
     }
 
@@ -195,7 +186,7 @@ public class MemberController {
     @ResponseBody
     public Map<String, String> modiPassProcess(String user_password, String user_password1, String user_password2, Principal principal) {
         String user_id = principal.getName();
-        Member member = meberService.member_info(user_id);
+        Member member = memberService.member_info(user_id);
         Map<String, String> passResult = new HashMap<>();
 
         if (passwordEncoder.matches(user_password, member.getUser_password())) {
@@ -218,7 +209,7 @@ public class MemberController {
         String user_id = principal.getName();
         String encPassword = passwordEncoder.encode(user_password1);
         member.setUser_password(encPassword);
-        int result = meberService.passUpdate(user_id, encPassword);
+        int result = memberService.passUpdate(user_id, encPassword);
         String url = "";
         // 비밀번호 변경 성공
         if (result == 1) {
@@ -235,7 +226,7 @@ public class MemberController {
     @GetMapping("/mysecurity")
     public ModelAndView mysecurity(Principal principal, ModelAndView mv, HttpServletRequest request) {
         String user_id = principal.getName();
-        Member m = meberService.member_info(user_id);
+        Member m = memberService.member_info(user_id);
 
         mv.setViewName("mypage/mysecurity");
 
@@ -266,7 +257,7 @@ public class MemberController {
 
         member.setUser_password(encPassword);
 
-        int result = meberService.insert(member);
+        int result = memberService.insert(member);
 
         // result=0; //에러페이지 확인용
         /*
@@ -289,7 +280,7 @@ public class MemberController {
     @RequestMapping(value = "/idcheck", method = RequestMethod.GET)
     public void idcheck(@RequestParam("user_id") String id, // member_joinForm에서 가져온 id값이 String형 id로 저장됨.
                         HttpServletResponse response) throws Exception {
-        int result = meberService.isId(id);
+        int result = memberService.isId(id);
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         out.print(result);
@@ -304,8 +295,8 @@ public class MemberController {
 //        response.setContentType("text/html;charset=utf-8");
 //        PrintWriter out = response.getWriter();
 //        
-        MailVO mail = mSender.setMailInfo("msb9876", receiver);
-        String num = mSender.sendMail(mail);
+        MailVO mail = mailFormSenders.setMailInfo("msb9876", receiver);
+        String num = mailFormSenders.sendMail(mail);
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         out.print(num);

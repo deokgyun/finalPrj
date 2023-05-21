@@ -63,13 +63,14 @@ public class MeetingController {
    // 회의실 예약 페이지 이동
    @GetMapping("/rev/{meet_no}")
    public ModelAndView rev(ModelAndView mv, @PathVariable("meet_no") int meet_no, Principal principal) {
+      String myId = principal.getName();
       List<MeetReservation> mr = meetservice.getReserv(meet_no);
       MeetingRoom mRoom = meetservice.meetRoomSelect(meet_no);
-      String myId = principal.getName();
-      mv.setViewName("meeting/meetRev");
       mv.addObject("list", mr);
       mv.addObject("roomInfo", mRoom);
       mv.addObject("myid", myId);
+      mv.setViewName("meeting/meetRev");
+      System.out.println(mr);
       return mv;
    }
 

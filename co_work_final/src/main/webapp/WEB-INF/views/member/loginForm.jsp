@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="col-6">
                                         <a href="auth-recoverpw.html" class="text-muted"><i
-                                                class="mdi mdi-lock me-1"></i> 비밀번호 찾기</a>
+                                                class="mdi mdi-lock me-1"></i> 비밀번호 변경</a>
                                     </div>
                                 </div>
                             </form>
