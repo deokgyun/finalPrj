@@ -85,6 +85,5 @@ if('${result}'=='passFail'){
 		</div><!-- container-fluid --> 
 	</div> <!-- end row -->
 </div>
-
 </body>
 </html>

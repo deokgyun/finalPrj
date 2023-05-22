@@ -63,13 +63,18 @@ public class MeetingController {
    // 회의실 예약 페이지 이동
    @GetMapping("/rev/{meet_no}")
    public ModelAndView rev(ModelAndView mv, @PathVariable("meet_no") int meet_no, Principal principal) {
-      List<MeetReservation> mr = meetservice.getReserv(meet_no);
-      MeetingRoom mRoom = meetservice.meetRoomSelect(meet_no);
       String myId = principal.getName();
-      mv.setViewName("meeting/meetRev");
+
+      List<MeetReservation> mr = meetservice.getReserv(meet_no);
+      logger.info("list mr 실행 후");
+      MeetingRoom mRoom = meetservice.meetRoomSelect(meet_no);
+      logger.info("mRoom 실행");
+
       mv.addObject("list", mr);
       mv.addObject("roomInfo", mRoom);
       mv.addObject("myid", myId);
+      mv.setViewName("meeting/meetRev");
+      System.out.println(mr);
       return mv;
    }
 
@@ -77,7 +82,6 @@ public class MeetingController {
    @PostMapping("/meetAdd")
    public String meetadd(MeetReservation mr, Principal principal, String meet_no) {
       String user_id = principal.getName();
-
       mr.setUser_id(user_id);
       mr.setRev_start_time(mr.getRev_start_date() + " " + mr.getRev_start_time());
       mr.setRev_end_time(mr.getRev_start_date() + " " + mr.getRev_end_time());

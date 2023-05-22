@@ -110,6 +110,5 @@ form[action=down] > input[type=submit]{
 	</div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
-<jsp:include page="../../main/footer.jsp"></jsp:include>
 </body>
 </html>

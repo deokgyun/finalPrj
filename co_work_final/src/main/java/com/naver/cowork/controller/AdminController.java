@@ -226,7 +226,7 @@ public class AdminController {
         }
 
         meetService.meetingRoomUpdate(mr);
-        return "redirect:../admin/meetModify?meet_no=" + mr.getMeet_no();
+        return "redirect:../admin/meetManage";
     }
 
     @GetMapping("/meetRoomModify")

@@ -148,6 +148,5 @@ label {
 	</div>
 </div>
 <!-- End Page-content -->
-<jsp:include page="../../main/footer.jsp"></jsp:include>
 </body>
 </html>

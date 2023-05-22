@@ -7,7 +7,8 @@ import com.naver.cowork.domain.MailVO;
 import java.util.Random;
 
 @Component
-public class MailFormSenders extends SendMailService {
+public class
+MailFormSenders extends SendMailService {
     private int authNumber;
 
     public MailVO setMailInfo(String from, String to) {
@@ -16,7 +17,7 @@ public class MailFormSenders extends SendMailService {
         mail.setFrom(from);
         mail.setTo(to);
         mail.setSubject("Co_Work에서 발송한 인증번호입니다");
-        mail.setContent(String.valueOf(authNumber));
+        mail.setContent("인증번호는 ["+String.valueOf(authNumber) + "] 입니다.");
         return mail;
     }
 

@@ -28,7 +28,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
         return dao.meetingRoomAll();
     }
 
-    @Cacheable(value="deptList")
+//    @Cacheable(value="deptList")
     public List<MeetReservation> getReserv(int meet_no) {
         return dao.getReserv(meet_no);
     }

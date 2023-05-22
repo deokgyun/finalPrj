@@ -27,7 +27,6 @@ return output;
 //url주소 변경하고, item.뒤에 붙은 이름들 인터넷 주소창에 board/list_ajax 들어가서 이름 값 확인하고 변경해줘야함
 //item이 boardlist임. board_list.jsp랑 비교해가면서 해석해보기
 function ajax(data){
-	console.log(data)
 	let token = $("meta[name='_csrf']").attr("content");
 	let header = $("meta[name='_csrf_header']").attr("content");
 	output="";
@@ -40,13 +39,13 @@ function ajax(data){
       cache : false,  //브라우저에서 캐시쓰지 않겠다. 정적페이지(항상변함없는 html, css같은거). 브라우저 너 캐시쓰지말고 계쏙해서 업데이트해서 보여줘.
       beforeSend : function(xhr)
         {   //데이터를 전송하기 전에 헤더에 csrf값을 설정합니다. ajax도 토큰 요청한다.
-           xhr.setRequestHeader(header, token);      
+           xhr.setRequestHeader(header, token);
         },
       success : function(data){  //data=변수명은 내 맘대로
-         $("viewcount").val(data.limit);  //받아온 객체 스트링으로옴. 꺼내오려면 data로 접근. 객체화 한 이름 .data 이 데이터를 data로 접근. 페이지 유지. 
+         $("viewcount").val(data.limit);  //받아온 객체 스트링으로옴. 꺼내오려면 data로 접근. 객체화 한 이름 .data 이 데이터를 data로 접근. 페이지 유지.
          //$("table").find("font").text("글 개수 : " + data.listcount);
          $("thead").find("span").text("글 개수 : " + data.listcount);
-         
+
          if(data.listcount > 0){ //총 갯수가 0보다 큰 경우
             $("tbody").remove();
             let num = data.listcount - (data.page - 1) * data.limit;  //noticelist.jsp에 <c:set var="num" value="${listcount-(page-1)*limit}" /와 같음
@@ -60,15 +59,15 @@ function ajax(data){
                   for(let i = 0; i < blank_count; i++){
                      blank += '&nbsp;&nbsp;';   //빈칸 두개
                   }
-                  
+
                   let img="";
                   if(item.freeboard_RE_LEV > 0){
                   	img="<img src='/cowork/resources/assets/images/board/line.gif'>";
                   }
-                  
+
                   let subject=item.freeboard_SUBJECT.replace(/</g, '&lt;')
                   subject=subject.replace(/>/g, '&gt;')
-                  
+
                   output += "<td>" + blank + img
                   output += ' <a href="detail?num='+ item.freeboard_NUM + '">'
                   output += subject + '<span class="gray small">[' + item.cnt + ']</span></a></td>'  //브라우저에서 cnt넘어가는 값 꼭 확인! 대문자 말고 소문자로 넘어감.
@@ -78,17 +77,17 @@ function ajax(data){
                })
                output += "</tbody>"
                $('table').append(output) //table 완성
-               
+
                $(".pagination").empty(); //페이징 처리 영역 내용 제거. 만들어놓은 class이름 복붙
                output = "";
-               
+
                let digit = '이전&nbsp;'
 					let href="";
 					if(data.page > 1){
 						href = 'href=javascript:go(' + (data.page -1) + ')';
-					}	
+					}
 					output += setPaging(href, digit);
-					
+
 					for(let i = data.startpage; i<=data.endpage; i++){  //forEach문
 						digit = i;
 						href="";
@@ -97,19 +96,20 @@ function ajax(data){
 						}
 						output += setPaging(href, digit);
 					}
-					
+
 					digit = '&nbsp;다음&nbsp;';
 					href="";
 					if(data.page < data.maxpage){
 						href='href=javascript:go(' + (data.page + 1) + ')';
-					}	
+					}
 					output += setPaging(href, digit);
-					
+
 					$('.pagination').append(output)
 					} //if(data.listcount) > 0 end
 			}, //success end
-			error : function(){
-				console.log('에러')
+			error : function(err){
+				console.log('에러맞나');
+				console.log(err);
 			}
 		}) //ajax end
 } //function ajax end
