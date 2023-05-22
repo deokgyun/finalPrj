@@ -122,11 +122,11 @@
                     $("input[name=user_email]").focus();
                     return false;
                 }
-                if (!checkCode) {
-                    alert("인증번호를 확인하세요")
-                    $("#code").focus();
-                    return false;
-                }
+                // if (!checkCode) {
+                //     alert("인증번호를 확인하세요")
+                //     $("#code").focus();
+                //     return false;
+                // }
             });//submit
 
             let re = "";
@@ -230,13 +230,13 @@
                                         <td><font id="checkPw"></font></td>
                                     </div>
 
-                                    <div class="mb-3">
-                                        <div class="float-end">
-                                            <input id="mail_submit" type="button" value="인증번호발송">
-                                            <input type="hidden" readonly="readonly" name="code_check" id="code_check">
-                                            <span id="code_check_message"></span>
-                                        </div>
-                                    </div>
+<%--                                    <div class="mb-3">--%>
+<%--                                        <div class="float-end">--%>
+<%--                                            <input id="mail_submit" type="button" value="인증번호발송">--%>
+<%--                                            <input type="hidden" readonly="readonly" name="code_check" id="code_check">--%>
+<%--                                            <span id="code_check_message"></span>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
 
 
                                     <label for="user_email" class="form-label">이메일</label>
@@ -245,20 +245,20 @@
                                     <span id="email_message"></span>
                             </div>
 
-                            <div class="mb-3">
-                                <div class="float-end">
+<%--                            <div class="mb-3">--%>
+<%--                                <div class="float-end">--%>
 
-                                    <input id="code_submit" type="button" value="인증번호확인">
-                                    <input type="hidden" readonly="readonly" name="code_num_check" id="code_num_check">
-                                </div>
-                            </div>
+<%--                                    <input id="code_submit" type="button" value="인증번호확인">--%>
+<%--                                    <input type="hidden" readonly="readonly" name="code_num_check" id="code_num_check">--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
 
-                            <div class="mb-3">
-                                <label for="code" class="mail_check_wrap">인증번호</label>
-                                <input type="text" class="form-control" id="code" name="code"
-                                       placeholder="이메일로 전송된 인증번호를 입력하세요" required>
-                                <span id="code_message"></span>
-                            </div>
+<%--                            <div class="mb-3">--%>
+<%--                                <label for="code" class="mail_check_wrap">인증번호</label>--%>
+<%--                                <input type="text" class="form-control" id="code" name="code"--%>
+<%--                                       placeholder="이메일로 전송된 인증번호를 입력하세요" required>--%>
+<%--                                <span id="code_message"></span>--%>
+<%--                            </div>--%>
 
                             <div class="mb-3">
                                 <label for="name" class="form-label">이름</label>

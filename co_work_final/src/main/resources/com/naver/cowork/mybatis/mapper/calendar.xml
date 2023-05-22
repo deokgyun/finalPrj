@@ -4,7 +4,9 @@
 
 <mapper namespace="com.naver.cowork.mybatis.mapper.CalMapper">
 	<select id="calendarListForMain" resultType="calendar">
-		SELECT CAL_NO,
+		SELECT
+		    ROWNUM,
+		    CAL_NO,
        CAL_TYPE,
        CAL_TITLE,
        CAL_CONTENT,
@@ -29,7 +31,7 @@
 	            USER_ID
 	     FROM CALENDAR
 	     WHERE TRUNC(CAL_START_DATE) = TRUNC(SYSDATE))
-	WHERE ROWNUM<![CDATA[ <= ]]>5
+	WHERE ROWNUM <![CDATA[ <= ]]>5  and  USER_ID = #{user_id}
 	</select>
 
     <select id="getCalList" resultType="calendar">

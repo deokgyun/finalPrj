@@ -4,8 +4,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <jsp:include page="../main/header.jsp"/>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath }/resources/assets/js/board_js/jquery-3.6.3.js"></script>
 <link href="${pageContext.request.contextPath }/resources/assets/css/freeBoard_css/freeReply.css" rel="stylesheet"
       type="text/css"/>
 <script src="${pageContext.request.contextPath }/resources/assets/js/freeBoard_js/freeReply.js"></script>
@@ -74,6 +72,5 @@
         </div>
     </div>
 </div>
-<jsp:include page="../main/footer.jsp"></jsp:include>
 </body>
 </html>

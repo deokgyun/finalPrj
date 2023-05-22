@@ -1,6 +1,7 @@
 package com.naver.cowork.controller;
 
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +29,7 @@ public class MainController {
 	private ProjectService projectService;
 	private CalService calservice;
 	private NoticeService noticeService;
-	
+
 	@Autowired
 	public MainController(ProjectService projectService, CalService calservice, NoticeService noticeService) {
 		super();
@@ -38,24 +39,25 @@ public class MainController {
 	}
 
 
-
 	@RequestMapping(value =  "/main" , method = RequestMethod.GET)
-	public ModelAndView main(ModelAndView mv,String user_id ) {
+	public ModelAndView main(ModelAndView mv, Principal principal) {
+		String user_id = principal.getName();
 		List<Notice> noticelist = noticeService.getNoticeListForMain();
 		List<Project> projectList = projectService.getProjectListForMain();
 		List<Calendar> calendarList = calservice.calendarListForMain(user_id);
+		logger.info(user_id);
 		projectList = projectService.getProjectListWithProg(projectList);
-		
-		
+
+
 		mv.addObject("noticelist",noticelist);
 		mv.addObject("projectList",projectList);
 		mv.addObject("calendarList",calendarList);
 		logger.info("noticelist",noticelist);
 		logger.info("projectList",projectList);
 		logger.info("calendarList",calendarList);
-		
+
 		mv.setViewName("main/main");
 		return mv;
 	}
-	
+
 }

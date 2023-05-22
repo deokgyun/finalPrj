@@ -4,8 +4,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <jsp:include page="../main/header.jsp"/>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath }/resources/assets/js/board_js/jquery-3.6.3.js"></script>
 <link href="${pageContext.request.contextPath }/resources/assets/css/freeBoard_css/freeBoard.css" rel="stylesheet" type="text/css" />
 <script src="${pageContext.request.contextPath }/resources/assets/js/freeBoard_js/freeBoard.js"></script>
 <script>
@@ -173,6 +171,7 @@ $(document).ready(function(){
                            <a class="page-link gray">&nbsp;&gt;</a>
                         </li>
                      </c:if>
+
                      <c:if test="${page < maxpage }">
                         <c:url var="next" value="freeBoardList">
                            <c:param name="search_field" value="${search_field }" />
@@ -214,6 +213,5 @@ $(document).ready(function(){
    </div>
 </div>       
    <!-- 하단푸터 -->
-<jsp:include page="../main/footer.jsp"></jsp:include>
 </body>
 </html>

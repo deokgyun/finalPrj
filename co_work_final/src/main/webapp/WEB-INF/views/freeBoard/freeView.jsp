@@ -4,10 +4,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <jsp:include page="../main/header.jsp"/>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath }/resources/assets/js/board_js/jquery-3.6.3.js"></script>
 <link href="${pageContext.request.contextPath }/resources/assets/css/freeBoard_css/freeBoardView.css" rel="stylesheet" type="text/css" />
-<script src="${pageContext.request.contextPath }/resources/assets/js/freeBoard_js/freeview.js"></script>
+
 <script>
 let result = "${result}";
 if(result == 'passFail'){
@@ -87,8 +85,8 @@ $(function(){
 				</div>
 					<div class="card"> 
 						<div class="card-body col text-center">
-								<button class="btn btn-link waves-effect">댓글</button>
-									<span id="count">${count }</span>
+<%--								<button class="btn btn-link waves-effect">댓글</button>--%>
+<%--									<span id="count">${count }</span>--%>
 									
 						<sec:authentication property="principal" var="pinfo" />  <!-- principal은 시큐리티가 가지고 있는 기술. principal로 아이디값을 불러올 수 있음-->
 						<sec:authorize access="isAuthenticated()">
@@ -143,25 +141,25 @@ $(function(){
 		</div>
 		<%-- div class="model" id="myModal" end --%>
 		
-		<div id="comment">
-			<button class="btn btn-light waves-effectt">총 50자까지 가능합니다.</button>
-			<button id="write" class="btn btn-primary waves-effect waves-light">등록</button>
-			<textarea rows=3 class="form-control" id="content" maxLength="50"></textarea>
-			<table class="table table-striped">
-				<thead>
-					<tr><td>아이디</td><td>내용</td><td>날짜</td></tr>
-				</thead>
-				<tbody>
-				
-				</tbody>
-			</table>
-				<div id="message"></div>
-		</div> <%-- comment-area end --%>
+<%--		<div id="comment">--%>
+<%--			<button class="btn btn-light waves-effectt">총 50자까지 가능합니다.</button>--%>
+<%--			<button id="write" class="btn btn-primary waves-effect waves-light">등록</button>--%>
+<%--			<textarea rows=3 class="form-control" id="content" maxLength="50"></textarea>--%>
+<%--			<table class="table table-striped">--%>
+<%--				<thead>--%>
+<%--					<tr><td>아이디</td><td>내용</td><td>날짜</td></tr>--%>
+<%--				</thead>--%>
+<%--				<tbody>--%>
+<%--				--%>
+<%--				</tbody>--%>
+<%--			</table>--%>
+<%--				<div id="message"></div>--%>
+<%--		</div> &lt;%&ndash; comment-area end &ndash;%&gt;--%>
 		
 	</div>
 </div>
 </div>
 <!-- End Page-content -->
-<jsp:include page="../main/footer.jsp"></jsp:include>
+<script src="${pageContext.request.contextPath }/resources/assets/js/freeBoard_js/freeview.js"></script>
 </body>
 </html>

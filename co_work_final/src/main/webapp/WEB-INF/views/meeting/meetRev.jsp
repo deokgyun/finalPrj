@@ -53,7 +53,7 @@ ul {
          },
          eventOverlap: false,
          selectOverlap: false,
-         events : [ 
+         events : [
             <c:forEach var="c" items="${list}">
                 {
                     meetno: '${c.meet_no}',
@@ -67,7 +67,7 @@ ul {
                     jobname : '${c.job_name}',
                     revno : '${c.rev_no}',
                     rendering: 'background'
-                  }   
+                  }
                 <c:if test="${!empty list}">, </c:if>
                 </c:forEach>
          ],  eventColor: 'white',
@@ -100,28 +100,27 @@ ul {
          allDaySlot : false,
          select : function(arg) {
             console.log(arg)
-            
             $("#insertModal").modal("show");
             $("#rev_start_date").val(arg.startStr.substring(0, 10));
             $("#rev_start_time").val(arg.startStr.substring(11, 16)).prop(
                   "selected", true);
             $("#rev_end_time").val(arg.endStr.substring(11, 16)).prop(
                   "selected", true);
-                
+
             $("form[name=add]").submit(function(e){
                var content = $("#rev_content").val();
                var startTime = $("#rev_start_time").val();
                var endTime = $("#rev_end_time").val();
-            
+
                if(content == "" || startTime == "" || endTime == ""){
                   alert("빈칸을 입력하세요.")
                   return false;
                } else if(startTime > endTime){
                   alert("종료시간은 시작시간보다 빠를 수 없습니다.")
                   return false;
-               }         
+               }
             })
-            
+
             // $.ajax({
             //         url: '../../meet/dateTest',
             //         type:"get",
@@ -147,13 +146,13 @@ ul {
                }
                   } else {
                      return {
-                     html: '<div>' + arg.event.title + " / " + arg.event.extendedProps.deptname+" " +arg.event.extendedProps.username + " " + arg.event.extendedProps.jobname + '</div>'                  
+                     html: '<div>' + arg.event.title + " / " + arg.event.extendedProps.deptname+" " +arg.event.extendedProps.username + " " + arg.event.extendedProps.jobname + '</div>'
                      }
                }
             } else {
                return {
                   html: arg.timeText
-               }   
+               }
             }
          },
          eventClick: function(info) {
@@ -171,17 +170,17 @@ ul {
                           success: function (resp, xhr, e) {
                              console.log(xhr)
                         if(xhr == 'success'){
-                              location.reload();   
+                              location.reload();
                               }
                           }
                       }) // ajax end
                } // if(confirm) end
-            }  // if(loginId == id) end 
+            }  // if(loginId == id) end
          }  // eventClick end
       })
 
       calendar.render();
-      
+
       // 날짜 변경시 우측 calendar 함께 변경
       $("#datepicker").datepicker({
          startDate : new Date(),
@@ -193,11 +192,11 @@ ul {
          calendar.gotoDate(getdate.setDate(getdate.getDate()));
       });
       $("#datepicker").datepicker("setDate", new Date());
-      
+
       $("#rev_start_time").change(function(){
          startChange();
       })
-      
+
       // 내가 등록한 이벤트 색상 변경
       $(".myevent").parent().parent().css("background", "green");
 
